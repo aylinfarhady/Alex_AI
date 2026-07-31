@@ -53,6 +53,3 @@ Future Plans
 
 Author
 Aylin farhady
-├── main.py
-├── Config.py
-└── test_ai.py
