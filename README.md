@@ -51,5 +51,5 @@ Future Plans
 - Improve long-term memory
 - Add more intellingent interactions
 
-Author
+Author 
 Aylin farhady
