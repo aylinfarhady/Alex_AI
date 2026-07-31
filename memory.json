@@ -1,0 +1,12 @@
+{
+    "user_name": "Aylin",
+    "user": {
+        "name": "aylin"
+    },
+    "conversation": [
+        "Hello, today I worked on the ALEX project"
+    ],
+    "preference": {
+        "like": "piano"
+    }
+}
