@@ -1,4 +1,7 @@
+
 # Alex AI 
+=======
+! [Alex AI] (assets/alex-ai.png)
 
 Alex AI is a personal artificial intelligence assistant project built with Python.
 
