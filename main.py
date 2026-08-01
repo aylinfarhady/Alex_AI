@@ -1,14 +1,10 @@
-print("THIS IS NEW MAIN")
 from core.brain import Brain
-
 
 class AlexAI:
 
     def __init__(self):
-        print("CREATING BRAIN")
+        
         self.brain = Brain()
-        print("BRAIN READY")
-
 
     def run(self):
 

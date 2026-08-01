@@ -1,3 +1,7 @@
 {
-    "user_name": "aylin"
+    "user_name": "aylin",
+    "name": "aylin",
+    "likes": [
+        "coffee"
+    ]
 }

@@ -13,21 +13,47 @@ class Memory:
                 json.dump({}, f)
 
 
-    def save(self, key, value):
+    def load(self):
 
         with open(self.file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+            return json.load(f)
+
+
+    def save(self, key, value):
+
+        data = self.load()
 
         data[key] = value
 
         with open(self.file, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
+            json.dump(
+                data,
+                f,
+                indent=4,
+                ensure_ascii=False
+            )
 
+
+    def add_to_list(self, key, value):
+
+        data = self.load()
+
+        if key not in data:
+            data[key] = []
+
+        data[key].append(value)
+
+        with open(self.file, "w", encoding="utf-8") as f:
+            json.dump(
+                data,
+                f,
+                indent=4,
+                ensure_ascii=False
+            )
 
 
     def get(self, key):
 
-        with open(self.file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        data = self.load()
 
         return data.get(key, None)
