@@ -1,101 +1,33 @@
-"""
-Alex AI Memory System
-"""
-
 import json
 import os
-import Config
 
 
-class MemoryManager:
+class Memory:
 
-    def init(self):
+    def __init__(self):
 
-        self.file = Config.MEMORY_FILE
-        self.create_memory()
-
-
-    def create_memory(self):
-
-        folder = os.path.dirname(self.file)
-
-        if not os.path.exists(folder):
-            os.makedirs(folder)
+        self.file = "memory.json"
 
         if not os.path.exists(self.file):
-
-            with open(
-                self.file,
-                "w",
-                encoding="utf-8"
-            ) as f:
-
-                json.dump(
-                    [],
-                    f,
-                    indent=4
-                )
+            with open(self.file, "w", encoding="utf-8") as f:
+                json.dump({}, f)
 
 
-    def load_memory(self):
+    def save(self, key, value):
 
-        try:
+        with open(self.file, "r", encoding="utf-8") as f:
+            data = json.load(f)
 
-            with open(
-                self.file,
-                "r",
-                encoding="utf-8"
-            ) as f:
+        data[key] = value
 
-                return json.load(f)
-
-        except:
-
-            return []
+        with open(self.file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
 
 
-    def save_message(self, sender, message):
 
-        memory = self.load_memory()
+    def get(self, key):
 
-        memory.append(
-            {
-                "sender": sender,
-                "message": message
-            }
-        )
+        with open(self.file, "r", encoding="utf-8") as f:
+            data = json.load(f)
 
-        with open(
-            self.file,
-            "w",
-            encoding="utf-8"
-        ) as f:
-
-            json.dump(
-                memory,
-                f,
-                indent=4,
-                ensure_ascii=False
-            )
-
-
-    def get_last_messages(self, amount=5):
-
-        memory = self.load_memory()
-
-        return memory[-amount:]
-
-
-    def clear_memory(self):
-
-        with open(
-            self.file,
-            "w",
-            encoding="utf-8"
-        ) as f:
-
-            json.dump(
-                [],
-                f,
-                indent=4
-            )
+        return data.get(key, None)

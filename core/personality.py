@@ -1,29 +1,19 @@
-"""
-Alex AI Personality System
-"""
-
-
 class Personality:
 
-    def init(self):
+    def __init__(self):
 
         self.name = "Alex"
 
         self.traits = {
-            "logic": 95,
-            "curiosity": 100,
-            "friendly": 100
+            "friendly": 100,
+            "curious": 100,
+            "logic": 95
         }
-
-
-    def introduce(self):
-
-        return (
-            f"I am {self.name}. "
-            "I am an AI assistant designed to learn, think and help."
-        )
 
 
     def describe(self):
 
-        return self.traits
+        return (
+            "I am Alex. "
+            "I am friendly, curious and logical."
+        )
