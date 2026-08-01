@@ -1,95 +1,101 @@
+"""
+Alex AI Memory System
+"""
+
 import json
 import os
+import Config
 
-MEMORY_FILE = "memory.json"
 
-def load_memory():
-    
-    if not os.path.exists(MEMORY_FILE):
-        return {}
-    
-    with open(MEMORY_FILE, "r", encoding="utf-8") as file:
-        return json.load(file)
-    
-def save_memory(memory):
-    with open(MEMORY_FILE, "w", encoding="utf-8") as file:
-        json.dump(memory, file, indent=4, ensure_ascii=False)
-        
-def remember(category, key, value):
-    
-    memory = load_memory()
-    
-    if category not in memory:
-        memory[category] = {}
-        
-    memory[category] [key] = value
-    
-    save_memory(memory)
-    
-def recall(category, key):
-    
-    memory = load_memory()
-    
-    if category not in memory:
-        return None
-    
-    return memory[category].get(key)
+class MemoryManager:
 
-def save_conversation(message):
-    
-    memory = load_memory()
-    
-    if "conversation" not in memory:
-        memory["conversation"] = []
-        
-        memory["conversation"].append(message)
-        
-        save_memory(memory)
-        
-def get_conversation():
-    
-    memory = load_memory()
-    
-    return memory.get("conversation", [])
+    def init(self):
 
-def save_user_info(key, value):
-    
-    memory = load_memory()
-    
-    if "user" not in memory:
-        memory["user"] = {}
-        
-    memory["user"] [key] = value
-    
-    save_memory(memory)
-    
-def get_user_info(key):
-    
-    memory = load_memory()
-    
-    if "user" not in memory:
-        return None 
-    
-    return memory["user"].get(key)
+        self.file = Config.MEMORY_FILE
+        self.create_memory()
 
-def save_preference(key, value):
-    
-    memory = load_memory()
-    
-    if "preference" not in memory:
-        memory["preference"] = {}
-        
-    memory["preference"][key] = value
-    
-    save_memory(memory)
-    
-def get_preference(key):
-    
-    memory = load_memory()
-    
-    if "preferences" not in memory:
-        return None
-    
-    return memory["preferences"].get(key)
 
-    
+    def create_memory(self):
+
+        folder = os.path.dirname(self.file)
+
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
+        if not os.path.exists(self.file):
+
+            with open(
+                self.file,
+                "w",
+                encoding="utf-8"
+            ) as f:
+
+                json.dump(
+                    [],
+                    f,
+                    indent=4
+                )
+
+
+    def load_memory(self):
+
+        try:
+
+            with open(
+                self.file,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
+                return json.load(f)
+
+        except:
+
+            return []
+
+
+    def save_message(self, sender, message):
+
+        memory = self.load_memory()
+
+        memory.append(
+            {
+                "sender": sender,
+                "message": message
+            }
+        )
+
+        with open(
+            self.file,
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            json.dump(
+                memory,
+                f,
+                indent=4,
+                ensure_ascii=False
+            )
+
+
+    def get_last_messages(self, amount=5):
+
+        memory = self.load_memory()
+
+        return memory[-amount:]
+
+
+    def clear_memory(self):
+
+        with open(
+            self.file,
+            "w",
+            encoding="utf-8"
+        ) as f:
+
+            json.dump(
+                [],
+                f,
+                indent=4
+            )

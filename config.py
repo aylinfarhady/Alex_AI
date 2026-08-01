@@ -1,27 +1,27 @@
-# ALEX AI Configuration
+"""
+Alex AI Configuration
+"""
 
-ALEX_NAME = "ALEX"
-ALEX_VERSION = "0.1"
+import os
 
-CREATOR = "Aylin"
 
-MISSION = (
-    "A personal AI assistant with memory, "
-    
-    "personality and intelligent interaction."
+# Alex Settings
+
+ALEX_NAME = "Alex"
+
+
+# Project paths
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+MEMORY_FILE = os.path.join(
+    BASE_DIR,
+    "data",
+    "memory.json"
 )
 
-LANGUAGES = [
-    "Persian",
-    "English",
-    "korean"
-]
 
-def get_identity():
-    return {
-        "name": ALEX_NAME,
-        "version": ALEX_VERSION,
-        "creator": CREATOR,
-        "mission": MISSION,
-        "languages": LANGUAGES
-    }
+# Version
+
+VERSION = "1.0"
